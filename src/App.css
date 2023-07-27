@@ -1,38 +1,354 @@
-.App {
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    overflow-x: hidden;
+}
+
+.bg_img {
+    width: 100%;
+    min-height: 313vh; /*prev 205vh ,313vh*/
+    background: url("./images/thunder.jpg");
+    margin-top: -14rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #ffffff;
+}
+
+/* overlay processes */
+.bg_img::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 282.7%; /* prev 100vh, 189.7%, 211.7%, 164.4%, 176.4%, 205%, 313%*/
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bg_img > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+input[type=text], select {
+    width:35%;
+    height: 2.7rem;
+    padding: 12px 20px;
+    margin: 0.8rem 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 0.4rem;
+    box-sizing: border-box;
+}
+
+.group {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.city,
+.temp {
+    font-size: 3rem;
+}
+
+.city {
+    margin-top: 2rem;
+}
+
+.box_container,
+.collapse-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-top: 2rem;
+}
+
+.box{
+    padding: 1rem;
+    border-radius: 1.2rem;
+    width: 220px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.collapse-box,
+.inner-collapse-box {
+  /* position: relative; */
+  padding: 1rem;
+  border-radius: 1.2rem;
+  width: 8rem;
+  height: 15rem;
+  background-color: rgba(207, 207, 207, 0.507);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  transition-duration: 0.3s ease-in-out;
+  color: black;
+  gap: 1.5rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.collapse-box:hover,
+.inner-collapse-box:hover,
+.inner-collapse-box.active {
+  gap: 1.5rem;
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.box:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.date {
+  font-size: 80%;
+  position: absolute;
+  top: 1.6rem;
+  right: 1rem;
+}
+
+.container,
+.io-container {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 0 20px;
+  position: relative;
+  min-height: 10vh;
+}
+
+.chart {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65%;
+  height: 20rem;
+  padding: 1px;
+  background-color: rgba(207, 207, 207, 0.507);
+  border-radius: 2rem;
+  backdrop-filter: blur(1px);
+}
+
+.tab-content {
+  display: flex;
+  justify-content: center;
+}
+
+.day-name {
+  white-space: nowrap;
+}
+
+.tab-content-box {
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  border-radius: .3rem;
+  background-color: #D4D4D4;
+  backdrop-filter: blur(1px);
+  margin-top: 10rem;
+  width: 20rem;
+  height: 20rem;
+}
+
+.tab-container {
   display: flex;
   flex-direction: column;
+  position: relative;
+  width: 8rem;
+  height: 15rem;
   align-items: center;
+  background: transparent;
+  margin: 100px auto 0;
+  word-break: break-all;
+  border: transparent;
+}
+
+.bloc-tabs {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.tabs {
+  text-align: center;
+  width: 8rem;
+  height: 15rem;
+  background: transparent;
+  cursor: pointer;
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  border-radius: 1.2rem;
+  margin-right: .5rem;
+}
+
+.active-tabs  {
+  background: white;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  width: 8rem;
+  height: 15rem;
+  padding: 1px;
+  background-color: transparent;
+  border-radius: 2rem;
+  backdrop-filter: blur(8px);
 }
 
-.App-link {
-  color: #61dafb;
+.active-tabs::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 0.8rem);
+  height: 5px;
+  background: rgb(88, 147, 241);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+button {
+  border: none;
+  
 }
+.content-tabs {
+  flex-grow : 1;
+}
+.content {
+  position: relative;
+  display: none;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2vw;
+  width: 115%;
+  height: 20rem;
+  /* max-width: 100rem; */
+  border-radius: 1.2rem;
+  backdrop-filter: blur(8px);
+  justify-content: center;
+}
+.inner-collapse-box h2 {
+  padding: 0px 0 5px 0px;
+  white-space: nowrap;
+}
+
+.inner-collapse-box p {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner-collapse-box h2 {
+  font-size: 110%;
+}
+
+.active-content {
+  display: flex;
+}
+
+.active-content .inner-collapse-box {
+  margin-top: 2.2rem;
+}
+
+.tab-container h2 {
+  margin-bottom: 1rem;
+}
+
+.info {
+  justify-content: right;
+  text-align: left;
+  align-items: center;
+  font-size: 1.1rem;
+  margin-left: 2rem;
+  margin-top: 1rem;
+}
+
+.info p {
+  margin-bottom: 0.5rem;
+  opacity: .8;
+}
+
+@media only screen and (max-width: 768px) {
+    .bg_img {
+      padding: 2rem 0;
+      margin-top: -1rem;
+    }
+  
+    .box_container {
+      flex-direction: column;
+    }
+  
+    .box,
+    .input {
+      width: 70vw;
+    }
+
+    .date {
+      position: relative;
+      top: 0;
+    }
+
+    .bg_img::before {
+      height: 353vh;
+    }
+
+    .tab-container {
+      width: 100%; /* Full width on small screens */
+      height: auto; /* Adjust height as needed */
+      margin: 20px auto 0; /* Update the top margin for better spacing on small screens */
+      padding: 10px; /* Add some padding for better layout */
+    }
+  
+    .bloc-tabs {
+      flex-wrap: wrap; /* Allow tabs to wrap to the next line */
+      justify-content: center; /* Center the tabs horizontally */
+    }
+  
+    .tabs {
+      width: 100%; /* Full width for each tab on small screens */
+      margin-bottom: 10px; /* Add some space between tabs */
+    }
+  
+    .content {
+      width: 100%; /* Full width for content on small screens */
+      height: auto; /* Adjust height as needed */
+    }
+  }
+
+  @media only screen and (min-width: 769px) {
+    .bg_img {
+      padding: 2rem 0;
+    }
+  
+    .box_container {
+      flex-direction: row;
+    }
+  
+    .box,
+    .input {
+      width: 14vw;
+    }
+
+  }
